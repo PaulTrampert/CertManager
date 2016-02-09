@@ -9,11 +9,16 @@
   <PropertyGroup>
     <NuGet>$(MSBuildProjectDirectory)\.build</NuGet>
     <NUnit>$(MSBuildProjectDirectory)\.build\NUnit\bin</NUnit>
+    <Artifacts>$(MSBuildProjectDirectory)\Artifacts</Artifacts>
   </PropertyGroup>
   
   <!-- Version Number -->
   <PropertyGroup Condition=" '$(Version)' == '' ">
     <Version>1.0.0</Version>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(GIT_COMMIT)' != ''">
+    <GitCommit>$(GIT_COMMIT.Substring(0, 5))</GitCommit>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -25,16 +30,16 @@
     <BuildConfiguration>Release</BuildConfiguration>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(BuildConfiguration)' != 'Release' AND '$(GIT_COMMIT)' != ''">
-    <InformationalVersion>$(Version).$(GIT_COMMIT)</InformationalVersion>
+  <PropertyGroup Condition="'$(BuildConfiguration)' != 'Release' AND '$(GitCommit)' != ''">
+    <InformationalVersion>$(Version).$(GitCommit)</InformationalVersion>
   </PropertyGroup>
   
-  <PropertyGroup Condition="'$(BuildConfiguration)' == 'Release' OR '$(GIT_COMMIT)' == ''">
+  <PropertyGroup Condition="'$(BuildConfiguration)' == 'Release' OR '$(GitCommit)' == ''">
     <InformationalVersion>$(Version)</InformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <CleanItems Include="**\obj\**;**\bin\**" Exclude="$(MSBuildProjectDirectory)\.build\**"/>
+    <CleanItems Include="**\obj\**;**\bin\**;$(Artifacts)\**" Exclude="$(MSBuildProjectDirectory)\.build\**"/>
   </ItemGroup>
   
   <Target Name="Clean">
@@ -78,6 +83,10 @@
       <Properties>Configuration=$(BuildConfiguration)</Properties>
     </NuGetProjects>
   </ItemGroup>
+  
+  <ItemGroup>
+    <PackageTargets Include="$(MSBuildProjectDirectory)\CertManager.Console\bin\$(BuildConfiguration)\**"/>
+  </ItemGroup>
 
   <Target Name="Compile" DependsOnTargets="Clean;Version">
     <MSBuild Projects="@(ProjectFiles)" />
@@ -85,10 +94,15 @@
 
   <Target Name="Build">
     <CallTarget Targets="Compile" />
+    <MakeDir Directories="$(Artifacts)"/>
   </Target>
 
   <Target Name="Test" DependsOnTargets="Build">
-    <NUnit Assemblies="@(NUnitProjects)" Domain="Multiple" ProjectConfiguration="$(BuildConfiguration)" Framework="net-4.6" OutputXmlFile="$(MSBuildProjectDirectory)\TestResults.xml" ToolPath="$(NUnit)"/>
+    <NUnit Assemblies="@(NUnitProjects)" Domain="Multiple" ProjectConfiguration="$(BuildConfiguration)" Framework="net-4.6" OutputXmlFile="$(Artifacts)\TestResults.xml" ToolPath="$(NUnit)"/>
+  </Target>
+  
+  <Target Name="Package" DependsOnTargets="Build">
+    <Zip Files="@(PackageTargets)" ZipFileName="$(Artifacts)\CertManager.zip" Flatten="true"/>
   </Target>
 
 </Project>
