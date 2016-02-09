@@ -6,26 +6,39 @@
 
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets"/>
 
+  <PropertyGroup>
+    <NuGet>$(MSBuildProjectDirectory)\.build</NuGet>
+    <NUnit>$(MSBuildProjectDirectory)\.build\NUnit\bin</NUnit>
+  </PropertyGroup>
+  
   <!-- Version Number -->
-  <PropertyGroup Condition=" '$(BUILD_NUMBER)' == '' ">
-    <Version>1.0.0.0</Version>
-    <FileVersion>1.0.0.0</FileVersion>
-    <InformationalVersion>1.0.0.0</InformationalVersion>
+  <PropertyGroup Condition=" '$(Version)' == '' ">
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(BUILD_NUMBER)' != '' ">
-    <!-- Build Server Number -->
-    <Version>1.0.0.0</Version>
-    <FileVersion>$(BUILD_NUMBER)</FileVersion>
-    <InformationalVersion>$(BUILD_NUMBER)</InformationalVersion>
+  <PropertyGroup>
+    <AssemblyVersion>$(Version).0</AssemblyVersion>
+    <FileVersion>$(Version).0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(BuildConfiguration)' == '' ">
     <BuildConfiguration>Release</BuildConfiguration>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(BuildConfiguration)' != 'Release' AND '$(GIT_COMMIT)' != ''">
+    <InformationalVersion>$(Version).$(GIT_COMMIT)</InformationalVersion>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(BuildConfiguration)' == 'Release' OR '$(GIT_COMMIT)' == ''">
+    <InformationalVersion>$(Version)</InformationalVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <CleanItems Include="**\obj\**;**\bin\**" Exclude="$(MSBuildProjectDirectory)\.build\**"/>
+  </ItemGroup>
+  
   <Target Name="Clean">
-    <DeleteTree Directories="**\obj\**;**\bin\**" />
+    <DeleteTree Directories="@(CleanItems)" />
   </Target>
 
   <Target Name="Version">
@@ -39,10 +52,10 @@
 
     <AssemblyInfo CodeLanguage="CS"
                   OutputFile="$(MSBuildProjectDirectory)\GlobalAssemblyInfo.cs"
-                  GenerateClass="true"
+                  GenerateClass="false"
                   AssemblyCopyright="Copyright © $(Year). All rights reserved."
                   AssemblyConfiguration="$(BuildConfiguration)"
-                  AssemblyVersion="$(Version)"
+                  AssemblyVersion="$(AssemblyVersion)"
                   AssemblyFileVersion="$(FileVersion)"
                   AssemblyInformationalVersion="$(InformationalVersion)" />
   </Target>
@@ -53,6 +66,18 @@
       <Properties>Configuration=$(BuildConfiguration)</Properties>
     </ProjectFiles>
   </ItemGroup>
+  
+   <ItemGroup>
+     <NUnitProjects Include="$(MSBuildProjectDirectory)\CertManager.Test\CertManager.Test.csproj">
+       <Properties>Configuration=$(BuildConfiguration)</Properties>
+     </NUnitProjects>
+   </ItemGroup>
+    
+  <ItemGroup>
+    <NuGetProjects Include="CertManager\CertManager.csproj">
+      <Properties>Configuration=$(BuildConfiguration)</Properties>
+    </NuGetProjects>
+  </ItemGroup>
 
   <Target Name="Compile" DependsOnTargets="Clean;Version">
     <MSBuild Projects="@(ProjectFiles)" />
@@ -60,6 +85,10 @@
 
   <Target Name="Build">
     <CallTarget Targets="Compile" />
+  </Target>
+
+  <Target Name="Test" DependsOnTargets="Build">
+    <NUnit Assemblies="@(NUnitProjects)" Domain="Multiple" ProjectConfiguration="$(BuildConfiguration)" Framework="net-4.6" OutputXmlFile="$(MSBuildProjectDirectory)\TestResults.xml" ToolPath="$(NUnit)"/>
   </Target>
 
 </Project>
