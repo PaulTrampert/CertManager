@@ -88,7 +88,11 @@
     <PackageTargets Include="$(MSBuildProjectDirectory)\CertManager.Console\bin\$(BuildConfiguration)\**"/>
   </ItemGroup>
 
-  <Target Name="Compile" DependsOnTargets="Clean;Version">
+  <Target Name="Restore">
+    <NuGetRestore Solution="@(ProjectFiles)" ToolPath="$(NuGet)"/>
+  </Target>
+  
+  <Target Name="Compile" DependsOnTargets="Clean;Restore;Version">
     <MSBuild Projects="@(ProjectFiles)" />
   </Target>
 
