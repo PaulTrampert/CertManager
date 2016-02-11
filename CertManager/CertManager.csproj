@@ -48,16 +48,17 @@
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Jws\Base64Url.cs" />
-    <Compile Include="Jws\Crypto\Hmac256Provider.cs" />
-    <Compile Include="Jws\Crypto\ISignatureProvider.cs" />
     <Compile Include="Jws\Jws.cs" />
     <Compile Include="Jws\JwsHandler.cs" />
     <Compile Include="Jws\JwsHeader.cs" />
+    <Compile Include="Jws\SignatureProviders\Hmac256Provider.cs" />
+    <Compile Include="Jws\SignatureProviders\ISignatureProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

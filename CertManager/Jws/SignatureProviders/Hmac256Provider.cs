@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Security.Cryptography;
 
-namespace CertManager.Jws.Crypto
+namespace CertManager.Jws.SignatureProviders
 {
     public class Hmac256Provider : ISignatureProvider
     {

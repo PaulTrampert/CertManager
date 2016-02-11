@@ -1,4 +1,4 @@
-﻿namespace CertManager.Jws.Crypto
+﻿namespace CertManager.Jws.SignatureProviders
 {
     public interface ISignatureProvider
     {
