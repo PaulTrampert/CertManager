@@ -1,6 +1,8 @@
-﻿namespace CertManager.Jws
+﻿using System.Dynamic;
+
+namespace CertManager.Jws
 {
-    public class JwsHeader
+    public class JwsHeader : DynamicObject
     {
         /// <summary>
         /// Algorithm
