@@ -57,6 +57,6 @@ namespace CertManager.Jws
         /// <summary>
         /// Critical
         /// </summary>
-        public string Crit { get; set; }
+        public string[] Crit { get; set; }
     }
 }
