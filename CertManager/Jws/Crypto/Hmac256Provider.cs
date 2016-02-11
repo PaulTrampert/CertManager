@@ -21,6 +21,8 @@ namespace CertManager.Jws.Crypto
             provider = new HMACSHA256(key);
         }
 
+        public string Algorithm => "HS256";
+
         public byte[] VerificationKey => provider.Key;
 
         public byte[] ComputeSignature(byte[] data)

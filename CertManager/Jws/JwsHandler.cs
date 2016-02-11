@@ -30,7 +30,7 @@ namespace CertManager.Jws
             var result = new Jws();
             var jsonPayload = JsonConvert.SerializeObject(obj, JsonSettings);
             result.Payload = Base64Url.ToBase64UrlString(jsonPayload);
-            var header = new JwsHeader {Alg = "HS256"};
+            var header = new JwsHeader {Alg = signatureProvider.Algorithm};
             header.Jwk = Base64Url.ToBase64UrlString(signatureProvider.VerificationKey);
             result.Protected = Base64Url.ToBase64UrlString(JsonConvert.SerializeObject(header, JsonSettings));
             result.Signature = Base64Url.ToBase64UrlString(signatureProvider.ComputeSignature(Encoding.UTF8.GetBytes($"{result.Protected}.{result.Payload}")));
