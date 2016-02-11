@@ -47,13 +47,13 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Jws\Base64Url.cs" />
     <Compile Include="Jws\Jws.cs" />
     <Compile Include="Jws\JwsHandler.cs" />
     <Compile Include="Jws\JwsHeader.cs" />
     <Compile Include="Jws\SignatureProviders\Hmac256Provider.cs" />
     <Compile Include="Jws\SignatureProviders\ISignatureProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Base64Url.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

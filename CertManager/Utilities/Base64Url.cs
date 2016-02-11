@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace CertManager.Jws
+namespace CertManager.Utilities
 {
     public class Base64Url
     {

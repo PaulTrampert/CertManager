@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using CertManager.Jws.SignatureProviders;
+using CertManager.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
