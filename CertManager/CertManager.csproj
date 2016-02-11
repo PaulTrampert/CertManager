@@ -48,6 +48,8 @@
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Jws\Base64Url.cs" />
+    <Compile Include="Jws\Crypto\Hmac256Provider.cs" />
+    <Compile Include="Jws\Crypto\ISignatureProvider.cs" />
     <Compile Include="Jws\Jws.cs" />
     <Compile Include="Jws\JwsHandler.cs" />
     <Compile Include="Jws\JwsHeader.cs" />

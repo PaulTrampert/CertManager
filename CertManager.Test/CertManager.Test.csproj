@@ -48,10 +48,17 @@
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="FakeTest.cs" />
+    <Compile Include="JwsHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CertManager\CertManager.csproj">
+      <Project>{C0FE5FA7-CEC5-4D54-A6ED-D2611C48A74D}</Project>
+      <Name>CertManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,7 +2,7 @@
 
 namespace CertManager.Jws
 {
-    public class JwsHeader : DynamicObject
+    public class JwsHeader
     {
         /// <summary>
         /// Algorithm
