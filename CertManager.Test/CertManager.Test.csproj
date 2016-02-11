@@ -48,7 +48,6 @@
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="TestBase.cs" />
-    <Compile Include="FakeTest.cs" />
     <Compile Include="JwsHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AsyncTestBase.cs" />

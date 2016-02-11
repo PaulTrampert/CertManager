@@ -24,6 +24,8 @@ namespace CertManager.Jws
             JsonSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
             if (signatureProvider == null)
                 this.signatureProvider = new Hmac256Provider();
+            else
+                this.signatureProvider = signatureProvider;
         }
 
         public Jws CreateJws<T>(T obj)
