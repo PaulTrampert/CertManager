@@ -106,7 +106,7 @@
   </Target>
   
   <Target Name="Package" DependsOnTargets="Build">
-    <Zip Files="@(PackageTargets)" ZipFileName="$(Artifacts)\CertManager.zip" Flatten="true"/>
+    <Zip Files="@(PackageTargets)" ZipFileName="$(Artifacts)\CertManager.$(Version).zip" Flatten="true"/>
   </Target>
 
 </Project>
