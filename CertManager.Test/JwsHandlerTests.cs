@@ -19,6 +19,8 @@ namespace CertManager.Test
 
         protected Jws.Jws Result { get; set; }
 
+        public Dictionary<string, string> AdditionalHeaders { get; set; }
+
         protected const string HmacKey = "key";
 
         [Test]
@@ -36,12 +38,14 @@ namespace CertManager.Test
                 What = new { Field5 = "where'd 1 go?" }
             };
 
+            AdditionalHeaders = new Dictionary<string, string> { {"Nonce", "asdfasdf"} };
+
             Handler = new JwsHandler(new Hmac256Provider(Encoding.UTF8.GetBytes("key")));
         }
 
         public override void BecauseOf()
         {
-            Result = Handler.CreateJws(TestObject);
+            Result = Handler.CreateJws(TestObject, AdditionalHeaders);
         }
     }
 }

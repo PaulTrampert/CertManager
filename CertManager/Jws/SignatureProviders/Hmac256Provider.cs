@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Dynamic;
+using System.Security.Cryptography;
 
 namespace CertManager.Jws.SignatureProviders
 {
@@ -14,6 +15,16 @@ namespace CertManager.Jws.SignatureProviders
         public Hmac256Provider(byte[] key)
         {
             provider = new HMACSHA256(key);
+        }
+
+        public dynamic Header
+        {
+            get
+            {
+                dynamic header = new ExpandoObject();
+                header.Alg = Algorithm;
+                return header;
+            }
         }
 
         public string Algorithm => "HS256";

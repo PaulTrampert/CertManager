@@ -28,13 +28,21 @@ namespace CertManager.Jws
                 this.signatureProvider = signatureProvider;
         }
 
-        public Jws CreateJws<T>(T obj)
+        public Jws CreateJws<T>(T obj, IDictionary<string, string> additionalHeaderProperties = null)
         {
             var result = new Jws();
             var jsonPayload = JsonConvert.SerializeObject(obj, JsonSettings);
             result.Payload = Base64Url.ToBase64UrlString(jsonPayload);
-            var header = new JwsHeader {Alg = signatureProvider.Algorithm};
-            header.Jwk = Base64Url.ToBase64UrlString(signatureProvider.VerificationKey);
+            var header = signatureProvider.Header;
+            if (additionalHeaderProperties != null && additionalHeaderProperties.Any())
+            {
+                header.Crit = additionalHeaderProperties.Keys;
+                IDictionary<string, object> headerDict = header;
+                foreach (var kvp in additionalHeaderProperties)
+                {
+                    headerDict[kvp.Key] = kvp.Value;
+                }
+            }
             result.Protected = Base64Url.ToBase64UrlString(JsonConvert.SerializeObject(header, JsonSettings));
             result.Signature = Base64Url.ToBase64UrlString(signatureProvider.ComputeSignature(Encoding.UTF8.GetBytes($"{result.Protected}.{result.Payload}")));
             return result;
