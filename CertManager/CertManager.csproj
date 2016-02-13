@@ -51,6 +51,7 @@
     <Compile Include="Jws\JwsHandler.cs" />
     <Compile Include="Jws\SignatureProviders\Hmac256Provider.cs" />
     <Compile Include="Jws\SignatureProviders\ISignatureProvider.cs" />
+    <Compile Include="Jws\SignatureProviders\RsaSignatureProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Base64Url.cs" />
   </ItemGroup>

@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using CertManager.Jws;
 using CertManager.Jws.SignatureProviders;
 using CertManager.Utilities;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using NUnit.Framework;
 
-namespace CertManager.Test
+namespace CertManager.Test.JwsTests
 {
     [TestFixture]
     public class WhenCreatingJws : TestBase
