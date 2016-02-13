@@ -23,7 +23,7 @@ namespace CertManager.Acme
             this.directoryUrl = directoryUrl;
         }
 
-        public async Task LoadDirectory()
+        public async Task Initialize()
         {
             Directory = await MakeRequest<Directory>(directoryUrl, HttpMethod.Get);
         }

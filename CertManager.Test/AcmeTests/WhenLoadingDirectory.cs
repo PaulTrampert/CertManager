@@ -8,11 +8,11 @@ using NUnit.Framework;
 namespace CertManager.Test.AcmeTests
 {
     [TestFixture]
-    public class WhenLoadingDirectory : WithAcmeClient
+    public class WhenInitializing : WithAcmeClient
     {
         public override async Task BecauseOf()
         {
-            await ClassUnderTest.LoadDirectory();
+            await ClassUnderTest.Initialize();
         }
 
         [Test]
