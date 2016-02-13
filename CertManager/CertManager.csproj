@@ -49,7 +49,9 @@
     </Compile>
     <Compile Include="Acme\AcmeClient.cs" />
     <Compile Include="Acme\Models\Authorization.cs" />
+    <Compile Include="Acme\Models\Challenge.cs" />
     <Compile Include="Acme\Models\Directory.cs" />
+    <Compile Include="Acme\Models\Identifier.cs" />
     <Compile Include="Acme\Models\Registration.cs" />
     <Compile Include="Http\RestClient.cs" />
     <Compile Include="Jws\Jws.cs" />
