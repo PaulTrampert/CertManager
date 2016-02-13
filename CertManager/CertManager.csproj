@@ -47,6 +47,10 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Acme\AcmeClient.cs" />
+    <Compile Include="Acme\Models\Authorization.cs" />
+    <Compile Include="Acme\Models\Directory.cs" />
+    <Compile Include="Acme\Models\Registration.cs" />
     <Compile Include="Http\RestClient.cs" />
     <Compile Include="Jws\Jws.cs" />
     <Compile Include="Jws\JwsBuilder.cs" />
