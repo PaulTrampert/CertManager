@@ -1,4 +1,5 @@
 ﻿using System.Dynamic;
+using System.Linq;
 using System.Security.Cryptography;
 
 namespace CertManager.Jws.SignatureProviders
@@ -32,6 +33,14 @@ namespace CertManager.Jws.SignatureProviders
         public byte[] ComputeSignature(byte[] data)
         {
             return provider.ComputeHash(data);
+        }
+
+        public bool VerifySignature(byte[] signature, byte[] data)
+        {
+            var hash = provider.ComputeHash(data);
+            if (signature.Length != hash.Length) return false;
+
+            return !hash.Where((t, i) => t != signature[i]).Any();
         }
     }
 }
