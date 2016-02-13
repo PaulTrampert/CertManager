@@ -32,7 +32,7 @@ namespace CertManager.Jws
         {
             var result = new Jws();
             var jsonPayload = JsonConvert.SerializeObject(obj, JsonSettings);
-            result.Payload = Base64Url.ToBase64UrlString(jsonPayload);
+            result.Payload = Base64Url.Serialize(jsonPayload);
             var header = signatureProvider.Header;
             if (additionalHeaderProperties != null && additionalHeaderProperties.Any())
             {
@@ -43,8 +43,8 @@ namespace CertManager.Jws
                     headerDict[kvp.Key] = kvp.Value;
                 }
             }
-            result.Protected = Base64Url.ToBase64UrlString(JsonConvert.SerializeObject(header, JsonSettings));
-            result.Signature = Base64Url.ToBase64UrlString(signatureProvider.ComputeSignature(Encoding.UTF8.GetBytes($"{result.Protected}.{result.Payload}")));
+            result.Protected = Base64Url.Serialize((string) JsonConvert.SerializeObject(header, JsonSettings));
+            result.Signature = Base64Url.Serialize(signatureProvider.ComputeSignature(Encoding.UTF8.GetBytes($"{result.Protected}.{result.Payload}")));
             return result;
         }
     }
