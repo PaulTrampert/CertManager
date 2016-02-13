@@ -50,5 +50,11 @@ namespace CertManager.Test.AcmeTests
         {
             Assert.That(ClassUnderTest.Directory.RevokeCert, Is.Not.Null);
         }
+
+        [Test]
+        public void InitialNonceIsSet()
+        {
+            Assert.That(ClassUnderTest.LastNonce, Is.Not.Null);
+        }
     }
 }
