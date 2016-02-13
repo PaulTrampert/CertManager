@@ -13,7 +13,7 @@ namespace CertManager.Jws.SignatureProviders
     {
         private RSACryptoServiceProvider rsa;
 
-        public dynamic Header
+        public dynamic ProtectedHeader
         {
             get
             {

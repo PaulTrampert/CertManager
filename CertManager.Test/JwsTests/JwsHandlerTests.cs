@@ -16,7 +16,7 @@ namespace CertManager.Test.JwsTests
 
         public JsonSerializerSettings SerializationSettings { get; set; }
 
-        protected JwsHandler Handler { get; set; }
+        protected JwsBuilder Builder { get; set; }
 
         protected dynamic DeserializedHeader { get; set; }
 
@@ -57,6 +57,12 @@ namespace CertManager.Test.JwsTests
             Assert.That(DeserializedHeader.Crit[0], Is.EqualTo("nonce"));
         }
 
+        [Test]
+        public void UnprotectedHeaderShouldBeNull()
+        {
+            Assert.That(Result.Header, Is.Null);
+        }
+
         public override void Context()
         {
             TestObject = new
@@ -72,12 +78,12 @@ namespace CertManager.Test.JwsTests
 
             AdditionalHeaders = new Dictionary<string, string> { {"nonce", "asdfasdf"} };
 
-            Handler = new JwsHandler(new Hmac256Provider(Encoding.UTF8.GetBytes("key")));
+            Builder = new JwsBuilder(new Hmac256Provider(Encoding.UTF8.GetBytes("key")));
         }
 
         public override void BecauseOf()
         {
-            Result = Handler.CreateJws(TestObject, AdditionalHeaders);
+            Result = Builder.CreateJws(TestObject, AdditionalHeaders);
             DeserializedHeader = JsonConvert.DeserializeAnonymousType(Base64Url.DeserializeAsUtf8String(Result.Protected), new {Alg = "", Crit = new string[0], Nonce = ""}, SerializationSettings);
         }
     }

@@ -18,7 +18,7 @@ namespace CertManager.Jws.SignatureProviders
             provider = new HMACSHA256(key);
         }
 
-        public dynamic Header
+        public dynamic ProtectedHeader
         {
             get
             {

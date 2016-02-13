@@ -2,7 +2,7 @@
 {
     public interface ISignatureProvider
     {
-        dynamic Header { get; }
+        dynamic ProtectedHeader { get; }
         string Algorithm { get; }
         byte[] ComputeSignature(byte[] data);
         bool VerifySignature(byte[] signature, byte[] data);
