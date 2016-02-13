@@ -29,8 +29,6 @@ namespace CertManager.Jws.SignatureProviders
 
         public string Algorithm => "HS256";
 
-        public byte[] VerificationKey => provider.Key;
-
         public byte[] ComputeSignature(byte[] data)
         {
             return provider.ComputeHash(data);
