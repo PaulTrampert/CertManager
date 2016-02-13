@@ -34,14 +34,14 @@ namespace CertManager.Jws
             var jsonPayload = JsonConvert.SerializeObject(obj, JsonSettings);
             result.Payload = Base64Url.Serialize(jsonPayload);
             var protectedHeader = signatureProvider.ProtectedHeader;
-            AddAdditionalProtectedHeaders<T>(additionalHeaderProperties, protectedHeader);
+            AddAdditionalProtectedHeaders(additionalHeaderProperties, protectedHeader);
             result.Protected = Base64Url.Serialize((string) JsonConvert.SerializeObject(protectedHeader, JsonSettings));
             result.Header = unprotectedHeader;
             result.Signature = Base64Url.Serialize(signatureProvider.ComputeSignature(Encoding.UTF8.GetBytes($"{result.Protected}.{result.Payload}")));
             return result;
         }
 
-        private static void AddAdditionalProtectedHeaders<T>(IDictionary<string, string> additionalHeaderProperties, dynamic protectedHeader)
+        private static void AddAdditionalProtectedHeaders(IDictionary<string, string> additionalHeaderProperties, dynamic protectedHeader)
         {
             if (additionalHeaderProperties != null && additionalHeaderProperties.Any())
             {
