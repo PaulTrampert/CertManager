@@ -57,7 +57,7 @@
     </Compile>
     <Compile Include="AcmeTests\WhenLoadingDirectory.cs" />
     <Compile Include="AcmeTests\WithAcmeClient.cs" />
-    <Compile Include="JwsTests\JwsHandlerTests.cs" />
+    <Compile Include="JwsTests\WhenCreatingJws.cs" />
     <Compile Include="JwsTests\SignatureProviderTests\WhenSigningWithHmac256Provider.cs" />
     <Compile Include="JwsTests\SignatureProviderTests\WhenSigningWithRsaSignatureProvider.cs" />
     <Compile Include="TestBase.cs" />
