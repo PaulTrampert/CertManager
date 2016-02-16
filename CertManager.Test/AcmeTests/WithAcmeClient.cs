@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CertManager.Acme;
 using CertManager.Http;
+using CertManager.Jws;
 using FakeItEasy;
 
 namespace CertManager.Test.AcmeTests
@@ -36,7 +37,8 @@ namespace CertManager.Test.AcmeTests
                     Content = new StringContent(DirectoryJson),
                     Headers = {{"Replay-Nonce", "noncey"}}
                 });
-            ClassUnderTest = new AcmeClient(RestClient, "https://acme-staging.api.letsencrypt.org/directory");
+            
+            ClassUnderTest = new AcmeClient(RestClient, new JwsBuilder(),  "https://acme-staging.api.letsencrypt.org/directory");
         }
     }
 }
