@@ -18,14 +18,13 @@ namespace CertManager.Jws
 
         public JwsBuilder(ISignatureProvider signatureProvider = null)
         {
-            JsonSettings = new JsonSerializerSettings();
-            JsonSettings.NullValueHandling = NullValueHandling.Ignore;
-            JsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            JsonSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-            if (signatureProvider == null)
-                this.signatureProvider = new Hmac256Provider();
-            else
-                this.signatureProvider = signatureProvider;
+            JsonSettings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                DateFormatHandling = DateFormatHandling.IsoDateFormat
+            };
+            this.signatureProvider = signatureProvider ?? new RsaSignatureProvider();
         }
 
         public Jws CreateJws<T>(T obj, IDictionary<string, string> additionalHeaderProperties = null, dynamic unprotectedHeader = null)
